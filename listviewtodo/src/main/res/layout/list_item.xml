@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/firstName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/firstName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="Имя"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/photo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/secondName" />
+
+    <TextView
+        android:id="@+id/secondName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="Фамилия"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/photo"
+        app:layout_constraintTop_toBottomOf="@+id/firstName"
+        app:layout_constraintBottom_toTopOf="@+id/sex" />
+
+    <TextView
+        android:id="@+id/sex"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="Пол"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/photo"
+        app:layout_constraintTop_toBottomOf="@+id/secondName"
+        app:layout_constraintBottom_toTopOf="@id/birthDay" />
+
+    <TextView
+        android:id="@+id/birthDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/photo"
+        app:layout_constraintTop_toBottomOf="@+id/sex"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/edit"
+        android:onClick="showDialog"
+        android:background="@android:color/transparent"
+        android:drawableRight="@android:drawable/ic_menu_edit"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/delete"
+        android:background="@android:color/transparent"
+        android:drawableRight="@android:drawable/ic_menu_delete"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:onClick="deletePerson"
+        app:layout_constraintRight_toLeftOf="@id/edit"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
