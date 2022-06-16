@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +30,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.zip.Inflater;
 
-public class CustomDialogFragment extends DialogFragment {
+public class EditDialogFragment extends DialogFragment {
 
     private Editable editable;
 
@@ -39,6 +41,8 @@ public class CustomDialogFragment extends DialogFragment {
     int position;
 
     EditText editFirstName, editSecondName;
+
+    RadioGroup radioGroup;
 
     DatePicker datePicker;
 
@@ -90,6 +94,14 @@ public class CustomDialogFragment extends DialogFragment {
         editFirstName = view.findViewById(R.id.editFirstName);
         editSecondName = view.findViewById(R.id.editSecondName);
         datePicker = view.findViewById(R.id.datePicker);
+        radioGroup = view.findViewById(R.id.radios);
+        if (person.getSex() == Sex.MALE) {
+
+            radioGroup.check(R.id.male);
+        } else {
+
+            radioGroup.check(R.id.female);
+        }
 
         editFirstName.setText(person.getFirstName());
         editSecondName.setText(person.getSecondName());
@@ -109,16 +121,20 @@ public class CustomDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String firstName = editFirstName.getText().toString();
                         String secondName = editSecondName.getText().toString();
-                        Sex sex = person.getSex();
+
+                        int radioButtonID = radioGroup.getCheckedRadioButtonId();
+                        View radioButton = radioGroup.findViewById(radioButtonID);
+                        int idx = radioGroup.indexOfChild(radioButton);
+
+                        Sex sex = radioGroup.getChildAt(idx).getId() == R.id.male ? Sex.MALE : Sex.FEMALE;
+
                         Date date = Utils.getDateFromDatePicker(datePicker);
                         Person changedPerson = new Person(firstName, secondName, sex, date);
-                        //case edit:
+
                         ((MainActivity)getActivity()).edit(changedPerson, position);
-                        //case add:
 
                     }
                 })
-//                )
                 .setNegativeButton("Отмена", null)
                 .create();
     }

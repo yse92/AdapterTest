@@ -3,16 +3,11 @@ package com.example.listviewtodo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.listviewtodo.adapter.PersonAdapter;
 import com.example.listviewtodo.model.Person;
@@ -23,8 +18,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity implements Editable {
 
@@ -77,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements Editable {
         int position = personsList.getPositionForView((View) v.getParent());
         Person person = personAdapter.getItem(position);
 
-        CustomDialogFragment dialog = new CustomDialogFragment();
+        EditDialogFragment dialog = new EditDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putString("person", Utils.getGsonParser().toJson(person));
         bundle.putInt("position", position);
@@ -89,6 +82,13 @@ public class MainActivity extends AppCompatActivity implements Editable {
     public void deletePerson(View v) {
         int position = personsList.getPositionForView((View) v.getParent());
         persons.remove(position);
+        personAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void insert(Person person) {
+
+        persons.add(person);
         personAdapter.notifyDataSetChanged();
     }
 
@@ -108,7 +108,11 @@ public class MainActivity extends AppCompatActivity implements Editable {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        switch(id) {
+            case R.id.add_new_person:
+                InsertDialogFragment insertDialogFragment = new InsertDialogFragment();
+                insertDialogFragment.show(getSupportFragmentManager(), "custom");
+        }
 
         return super.onOptionsItemSelected(item);
     }
